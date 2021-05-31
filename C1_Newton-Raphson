@@ -1,0 +1,97 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 1: Raízes
+# Método aberto: Newton-Raphson
+# Diodo
+# Adaptado de geeksforgeeks.org
+# Referência: https://www.geeksforgeeks.org/program-for-newton-raphson-method/
+
+# Função de definida
+def f(Id, n=2, k=1.3806 * (10 ** (-23)), V=24, T=300, q=1.6022 * (10 ** (-19)), Icr=31.9824 * (10 ** (-9)), R=10):
+    '''
+      Id = Corrente no diodo (A)
+      n = Coeficiente de emissão
+      k = Constante de Boltzmann
+      V = Tensão da fonte (V)
+      T = Temperatura de operação (K)
+      q = Carga do elétron
+      Icr = Corrente de condução reversa (A)
+      R = Resistência (Ohms)
+    '''
+    from math import log, e
+    return (n * (k * T / q)) * log((Id / Icr) + 1, e) + R * Id-V
+
+
+# Algoritmo do método
+def bisseccao(x1, x2, TOL, iter=16):
+    '''
+    x1 e x2 valores que delimitam intervalo inicial
+    TOL = erro tolerado
+    iter = número máximo de iterações
+    '''
+    hp=(x1+x2)/2
+    lista_f1 = []
+    lista_f2 = []
+    lista_x1 = []
+    lista_x2 = []
+    lista_X = []
+    lista_Erro = []
+    if f(x1) * f(x2) > 0:
+        # nenhuma raíz.
+        print("Nenhuma raíz encontrada.")
+    else:
+        e = 0
+        while abs(f(x2) - f(x1)) > TOL or e <= iter:
+            lista_Erro.append(abs(f(x2) - f(x1)))
+            lista_x1.append(x1)
+            lista_x2.append(x2)
+            lista_X.append(hp)
+            lista_f1.append(f(x1))
+            lista_f2.append(f(hp))
+            
+            hp = (x1 + x2) / 2.0
+            if f(hp) == 0:
+                return [hp, e]
+            elif f(x1) * f(hp) < 0:
+                x2 = hp
+                e += 1
+            else:
+                x1 = hp
+                      
+        return {"hp":hp,
+                "iteração": e,
+                "Erro" :lista_Erro, 
+                "x1": lista_x1, 
+                "x2":lista_x2, 
+                "X":lista_X, 
+                "F(x1)":lista_f1, 
+                "F(x)":lista_f2}
+
+
+resp = bisseccao(x1 = 2, x2 = 2.5, TOL = 0.0001, iter =16)
+print(f'raíz aprox {resp["hp"]:.4f}\nO número de iterações foi {resp["iteração"]}')
+
+pergunta = str(input('Deseja ver as iterações?[S/N]'))
+while pergunta not in 'SsNn':
+  print('Por favor apenas S/N')
+  pergunta = str(input('Deseja ver as iterações?[S/N]'))
+if pergunta in 'Ss':
+  head = ['Interação', 'x1', 'x2', 'X', 'F(x1)', 'F(x)', 'Erro']
+  line = []
+  for c in range(0,resp["iteração"]):
+    line.append((c+1,f'{resp["x1"][c]:.4f}',f'{resp["x2"][c]:.4f}',f'{resp["X"][c]:.4f}',f'{resp["F(x1)"][c]:.4f}',f'{resp["F(x)"][c]:.4f}',f'{resp["Erro"][c]:.4f}'))
+  print(head)
+  for c in range(0,resp["iteração"]):
+    print(line[c])
+
+# Visualização
+import numpy as np
+ord = np.linspace(0,5,100)
+ab = list()
+for c in range(0, len(ord)):
+  fx = f(ord[c])
+  ab.append(fx)
+import matplotlib.pyplot as plt
+plt.plot(ord, ab, linewidth=1,color='k')
+plt.plot(resp["X"][len(resp["X"])-1],0,'ro' )
+plt.grid(True)
+plt.title('f(x)')
