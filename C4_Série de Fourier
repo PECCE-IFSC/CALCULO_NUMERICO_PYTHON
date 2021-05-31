@@ -1,0 +1,14 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 4: Ajuste de curvas
+# Série de Fourier
+
+
+import numpy as np
+pi = np.pi
+T = 0.01666
+t = np.linspace(0,T,9) 
+w = 2*pi*60
+y = np.array([0, 220, 311, 220, 0, -220, -311, -220, 0])
+n = len(t)
+np.fft.fft(y,n-1)
+#np.fft.ifft(y,n-1)
