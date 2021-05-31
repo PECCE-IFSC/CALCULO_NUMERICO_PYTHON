@@ -1,0 +1,81 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 5: Integração numérica
+# Newton-Cotes
+
+
+from numpy import linspace, divide, multiply, exp
+R = 1
+C = 0.001
+Vo = 10
+TAL = R*C
+t = linspace(0,3*TAL,7)
+Vc = Vo*exp(divide(-t,(TAL)))
+Ic = (Vo*exp(divide(-t,(TAL))))/R
+P = lambda Vc, Ic: multiply(Vc, Ic)
+Pmed = Vo**2/(6*R) * (-exp(-6)+1)
+w = C*Vo**2/2 * (-exp(-6)+1)
+# trapézio
+a = round(t[1])
+b = t[len(t)-1]
+# limites
+n = 150
+# número de segmentos
+x = a
+h = (b-a)/n
+ff = lambda x: (10*exp(divide(-x, 0.001)))**2
+Ianalitico = w
+s = ff(x)
+for i in range(0,n-1):
+  x = x+h
+  s = s + 2*ff(x)
+s = s + ff(b)
+P = (b-a) * s/(2*n)
+w = P
+Pmed = w/(3*TAL)
+Erro = (Ianalitico - P)/Ianalitico
+P = Vc*Ic
+print('ff =\n\n lambda x: (10*exp(divide(-x, 0.001)))**2 \n')
+print(f'w = {w}')
+print(f'Pmed = {Pmed}')
+print(f'Erro = {Erro}')
+
+# Visualização
+import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.ticker as ticker
+
+Fig = plt.figure()
+plt.style.use('fast')
+ax1 = Fig.add_subplot(221)
+ax1.grid(True)
+ax2 = Fig.add_subplot(222)
+ax2.grid(True)
+ax3 = Fig.add_subplot(212)
+ax3.grid(True)
+
+ax1.set_ylabel('V (V)')
+ax2.set_ylabel('I (A)')
+ax3.set_ylabel('P (W)')
+ax3.set_xlabel('t (s) x10^-3')
+
+ax1.locator_params(axis="y", nbins=2)
+ax2.locator_params(axis="y", nbins=2)
+ax3.locator_params(axis="y", nbins=2)
+
+Tens = ax1.plot(t,Vc)
+Corr = ax2.plot(t,Ic)
+Pot = ax3.plot(t,P, label = 'T = 3RC')
+
+ax1.set_xticklabels(['0', '1', '2', '3'])
+ax2.set_xticklabels(['0', '1', '2', '3'])
+ax3.set_xticklabels(['0', '0.5', '1', '1.5', '2', '2.5', '3'])
+
+ax1.set_ylim(min(Vc),max(Vc))
+ax2.set_ylim(min(Ic),max(Ic))
+ax3.set_ylim(0,100)
+ax1.set_xlim(0,0.003)
+ax2.set_xlim(0,0.003)
+ax3.set_xlim(0,0.003)
+plt.legend()
+plt.tight_layout()
+plt.show()
