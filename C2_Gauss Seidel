@@ -1,0 +1,64 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 2: Sistemas Lineares
+# Método iterativo: Gauss-Siedel
+# Referência: https://www.youtube.com/watch?v=SuguUYdE67A
+
+from numpy import array, zeros
+def Gauss_Seidel(A, b):
+    '''
+    :param A: matriz aumentada (array da biblioteca numpy)
+    :param b: vetor (array da biblioteca numpy)
+    '''
+    m = len(A)
+    n = len(A[0])
+    x = zeros((m))
+    comp = zeros((m))
+    error = []
+    print ('Método de Gauss-Seidel')
+    TOL = float(input('Erro tolerado: '))
+    maxit = 5000
+    resposta = str(input('Deseja ver o processo das iterações?[S/N}: '))
+    while resposta not in 'SsNn':
+        print('Por favor digite uma opção válida:')
+        resposta = str(input('Deseja ver o processo das iterações?[S/N}: '))
+    k = 0
+    while k < maxit:
+        suma=0
+        k = k + 1
+        if resposta in 'Ss': print(f'Iteração: {k}')
+        for r in range(0,m):
+            suma=0
+            for c in range(0,n):
+                if (c != r):
+                    suma = suma+A[r, c]*x[c]
+            x[r] = (b[r]-suma)/A[r, r]
+            if resposta in 'Ss': print(f'x[{r}]: {x[r]}')
+        del error[:]
+        
+        for r in range(0,m):
+            suma=0
+            for c in range(0,n):
+                suma = suma+A[r, c]*x[c]
+            comp[r] = suma
+            dif = abs(comp[r]-b[r])
+            error.append(dif)
+            if resposta in 'Ss':
+                print(f'Erro em x[{r}] = {error[r]}')
+        if resposta in 'Ss': print('-'*30)
+        if all(i <= TOL for i in error) == True:
+            break
+    print(f'Com {k} iterações.')
+    for c in range(0,m):
+        print(f'x[{c}]: {round(x[c],4)}')
+
+
+# Uso do método
+A = array([[3, 1, 0, -1],
+           [1, 3, 1, 1],
+           [0, 1, 3, -1],
+           [-1, 1, -1, 4]], float)
+b = array([[10],
+           [15],
+           [10],
+           [0]])
+Gauss_Seidel(A, b)
