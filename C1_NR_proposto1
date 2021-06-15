@@ -1,0 +1,21 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 1: Raízes
+# Método aberto: Newton-Raphson_PROPOSTO
+# Catenaria
+
+import numpy as np
+
+x=200 #valor inicial de x
+d=500
+f=50
+xv=100 #variável x
+iter = 0
+while abs((x-xv)/x)*100 > 0.0001 and x!=0.0:
+    xv=x
+    x=x-(x*(np.cosh(d/(2*x))-1)-f)/(-1+np.cosh(d/(2*x))-(d*np.sinh(d/(2*x)))/(2*x))
+    Hxi=x*(np.cosh(d/(2*x))-1)-f
+    dHxi=1+np.cosh(d/(2*x))-(d*np.sinh(d/(2*x)))/(2*x)
+    er= abs((x-xv)/x)*100 # calculo do erro absoluto
+    iter=iter+1           # incremento do numero de interações
+    print(f'Iter = {iter} x = {x:.4f}, Hxi = {Hxi:.4f} , dHxi = {dHxi:.4f}, erro = {er:.4f} \n')
+  
