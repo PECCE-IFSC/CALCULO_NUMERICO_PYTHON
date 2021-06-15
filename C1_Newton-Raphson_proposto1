@@ -1,6 +1,6 @@
 # Cálculo numérico para engenharia elétrica com PYTHON
 # Capítulo 1: Raízes
-# Método aberto: Newton-Raphson_PROPOSTO
+# Método aberto: Newton-Raphson_PROPOSTO1
 # Catenaria
 
 import numpy as np
