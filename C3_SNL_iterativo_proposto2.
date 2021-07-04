@@ -1,0 +1,70 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 3: Sistemas Não Lineares_PROPOSTO2
+# Método iterativo: Gauss-Siedel
+# Sistema de potência
+
+import numpy as np
+import cmath
+import scipy
+import scipy.linalg 
+# Monticelli
+A = np.array([[complex(3,3), complex(-1,-1), complex(-1,-1)],
+              [complex(-1,-1), complex(3,3), complex(-1,-1)],
+              [complex(-1,-1), complex(-1,-1), complex(3,3)]],dtype='complex_')
+
+
+b = np.array([complex(1,0), complex(1,0) ,complex(1,0)],dtype='complex_')
+
+
+#Fatoração ou Decomposição LU
+P,L,U = scipy.linalg.lu(A)
+# L*U  Matriz original
+# Substituição progressiva
+d = np.linalg.lstsq(L, b, rcond=None)[0]
+# Substituição regressiva
+V = np.linalg.lstsq(U, d, rcond=None)[0]
+
+
+
+iter = 0           #número de iterações
+maxit = 5000       #número máximo de iterações
+es = .0001         #critério de parada
+ea = np.zeros(n,dtype='complex')
+
+m = np.size(A,0)
+n = np.size(A,0)
+x = np.zeros(n,dtype='complex_')
+
+print(f'V =\n{V.reshape(n,1)}\n')
+
+C=A.copy()
+for i in range(0,n):
+    C[i,i] = 0     #zerar diagonal
+                   #cria vetor de soluções
+
+x = x.reshape((n,1))
+
+
+C = np.divide(C,A[i,i],dtype='complex_')  #determinação de C    
+
+for i in range(0,n):
+      d[i] = np.divide(b[i],A[i,i],dtype='complex_') #determinação de d
+
+
+while True:
+    x_velho = x.copy()
+    for i in range (0,n):
+        x[i] = d[i]-np.dot(C[i,:],x)
+        if x[i] != 0:
+            ea[i] = abs((x[i] - x_velho[i])/x[i])
+           
+
+    iter = iter+1
+    if max(ea)<=es or iter >= maxit:
+        break
+
+
+print(f'x =\n{x}\n')
+print(f'iter = {iter}\n ')
+
+print(f'ea = {ea}')
