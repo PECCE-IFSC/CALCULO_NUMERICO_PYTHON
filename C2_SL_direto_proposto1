@@ -29,7 +29,7 @@ for i in range(0,n):
     C[i,i] = 0     #zerar diagonal
 
 
-x = x.reshape((2,1))
+x = x.reshape((n,1))
 
 
 d = np.zeros(n)
