@@ -1,3 +1,8 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 2: Sistemas Lineares_PROPOSTO1
+# Método Direto
+
+
 import numpy as np
 
 A = np.array([[20, 10],
