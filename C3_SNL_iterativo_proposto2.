@@ -29,11 +29,11 @@ V = np.linalg.lstsq(U, d, rcond=None)[0]
 iter = 0           #número de iterações
 maxit = 5000       #número máximo de iterações
 es = .0001         #critério de parada
-ea = np.zeros(n,dtype='complex')
 
 m = np.size(A,0)
 n = np.size(A,0)
 x = np.zeros(n,dtype='complex_')    #cria vetor de soluções
+ea = np.zeros(n,dtype='complex')
 
 print(f'V =\n{V.reshape(n,1)}\n')
 
