@@ -53,7 +53,7 @@ for i in range(0,n):
 
 while True:
     x_velho = x.copy()
-    for i in range (0,n):
+    for i in range(0,n):
         x[i] = d[i]-np.dot(C[i,:],x)
         if x[i] != 0:
             ea[i] = abs((x[i] - x_velho[i])/x[i])
