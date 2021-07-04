@@ -33,14 +33,14 @@ ea = np.zeros(n,dtype='complex')
 
 m = np.size(A,0)
 n = np.size(A,0)
-x = np.zeros(n,dtype='complex_')
+x = np.zeros(n,dtype='complex_')    #cria vetor de soluções
 
 print(f'V =\n{V.reshape(n,1)}\n')
 
 C=A.copy()
 for i in range(0,n):
     C[i,i] = 0     #zerar diagonal
-                   #cria vetor de soluções
+                 
 
 x = x.reshape((n,1))
 
