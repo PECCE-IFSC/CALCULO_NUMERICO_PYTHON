@@ -1,1 +1,72 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 2: Sistemas Lineares_PROPOSTO2
+# Método iterativo: Gauss-Siedel
 
+import numpy as np
+import scipy
+import scipy.linalg
+
+A = np.array([[6, -3, -3, 0, 0],
+              [-3, 6, 0, -3, 0],
+              [-3, 0, 6, -1, -2],
+              [0, -3, -1, 5, 0],
+              [0, 0, -2, 0, 3]])
+
+b = np.array([0, 6, 0, 2, -3])
+
+
+#Fatoração ou Decomposição LU
+P,L,U = scipy.linalg.lu(A)
+# L*U  Matriz original
+# Substituição progressiva
+d = np.linalg.lstsq(L, b, rcond=None)[0]
+# Substituição regressiva
+V = np.linalg.lstsq(U, d, rcond=None)[0]
+
+
+iter = 0           #número de iterações
+maxit = 5000       #número máximo de iterações 
+es = .0001         #critério de parada
+
+
+m = np.size(A,0)
+n = np.size(A,0)
+x = np.zeros(n)    #cria vetor de soluções
+ea = np.zeros(n)
+
+
+print(f'V =\n{V.reshape(n,1)}\n')
+
+C = A.copy()
+for i in range(0,n):
+    C[i,i] = 0     #zerar diagonal
+           
+
+x = x.reshape((n,1))
+
+c_intermed = np.zeros((n,n))
+
+for i in range(0,n):
+  d[i] = b[i]/A[i,i]                      #determinação de d 
+  c_intermed[i,0:n+1] = C[i,0:n+1]/A[i,i] #determinação de C 
+
+C = c_intermed
+
+print(f'C = \n{C}')
+while True:
+    x_velho = x.copy()
+    
+    for i in range(0,n):
+        x[i] = d[i]-np.dot(C[i,:],x)
+        if x[i] != 0:
+            ea[i] = abs((x[i] - x_velho[i])/x[i])
+
+
+    iter = iter+1
+    if max(ea)<=es or iter >= maxit:
+        break
+
+print(f'x =\n{x}\n')
+print(f'iter = {iter}\n ')
+
+print(f'ea = {ea}')
