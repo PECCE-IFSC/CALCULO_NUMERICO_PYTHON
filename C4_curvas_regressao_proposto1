@@ -27,9 +27,9 @@ print(a)
 # gráfico
 xp = np.linspace(min(x),max(x),10)
 yp = a[0]*xp+a[1]
-plt.plot(x,y,'o',markeredgecolor ='k',markerfacecolor = 'k',markersize = 8)
+plt.plot(x,y,'o',markeredgecolor ='k',markerfacecolor = 'k',markersize = 8, label = '(x,y)')
 
-plt.plot(xp,yp,'k-',linewidth = 2)
+plt.plot(xp,yp,'k-',linewidth = 2,label = 'grau 2')
 plt.grid(True)
 plt.xlabel('R (ohms)')
 plt.ylabel('I (A)')
@@ -40,18 +40,28 @@ m=2
 c = np.polyfit(x,y,m)  #ajusta por mínimos quadrados um polinômio de n grau
 xx = np.linspace(x[0],x[-1],100) # numero de pontos para polinômio de grau maior
 yy = np.polyval(c,xx)
-plt.plot(xx,yy,'k--',linewidth = 2)
+plt.plot(xx,yy,'k--',linewidth = 2, label = 'grau 3')
 
 
 m = 4
 c = np.polyfit(x,y,m)  #ajusta por mínimos quadrados um polinômio de n grau
 xx = np.linspace(x[0],x[-1],100) #numero de pontos para polinômio de grau maior
 yy = np.polyval(c,xx)
-plt.plot(xx,yy,'k.',linewidth = 4)
+plt.plot(xx,yy,'k.',linewidth = 4, label = 'grau 4')
 
 
 m=5
 c = np.polyfit(x,y,m)  #ajusta por mínimos quadrados um polinômio de n grau
 xx = np.linspace(x[0],x[-1],100) # numero de pontos para polinômio de grau maior
 yy = np.polyval(c,xx)
-plt.plot(xx,yy,'r',linewidth = 4)
+plt.plot(xx,yy,'r',linewidth = 2, label = 'grau 5')
+plt.legend()
+
+      
+plt.rc('axes', titlesize=13)     
+plt.rc('axes', labelsize=13)    
+plt.rc('xtick', labelsize=13)    
+plt.rc('ytick', labelsize=13)   
+plt.rc('legend', fontsize=13)   
+
+plt.show()
