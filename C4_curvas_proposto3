@@ -1,0 +1,41 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 4: Ajuste de curvas_PROPOSTO3
+# Interpolação - exercício proposto
+
+import numpy as np
+import scipy.interpolate as sp
+import matplotlib.pyplot as plt
+
+
+H = np.array([80,-60,40,-30,20,-10,5,-2.5,1.25,-0.625,0.3125])
+T = np.array(range(0,11))
+
+# pontos experimentais
+
+plt.plot(T,H,'o',label = '(T,H)',markersize = 8)
+
+# splines
+x = np.linspace(min(T),max(T),100)
+c = sp.splrep(T,H)
+fx = sp.splev(x,c)
+
+plt.plot(x,fx, 'r--',label = 'splines')
+
+# pchip
+
+x = np.linspace(min(T),max(T),100)
+p = sp.PchipInterpolator(T,H)
+plt.plot(x,p(x),'k-',label='pchip')
+
+# Tamanho de elementos do gráfico
+plt.rc('axes', titlesize=14)     
+plt.rc('axes', labelsize=14)    
+plt.rc('xtick', labelsize=14)    
+plt.rc('ytick', labelsize=14)   
+plt.rc('legend', fontsize=14)   
+
+plt.xlabel('T(s)')
+plt.ylabel('H(A/m)')
+plt.legend()
+plt.show()
+
