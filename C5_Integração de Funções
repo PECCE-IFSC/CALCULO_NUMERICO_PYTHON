@@ -5,28 +5,28 @@
 
 
 import numpy as np
-def feval(funcName, *args):
-	return eval(funcName)(*args)
+def feval(Nomefuncao, argumentos):
+    return eval(Nomefuncao)(argumentos)
 
 
 def f(x): 
-  return (10*np.exp(np.divide(-x,0.001)))**2
+    return (10*np.exp(np.divide(-x,0.001)))**2
 
 
 def quadsetp(f,a,b,tol,fa,fc,fb):
-  h = b-a
-  c = (a+b)/2
-  fd = feval('f', (a+c)/2)
-  fe = feval('f', (c+b)/2)
-  q1 = h/6 * (fa + 4*fc + fb)
-  q2 = h/12 * (fa + 4*fd + 2*fc + 4*fe + fb)
-  if abs(q2-q1) <= tol:
-    q = q2 + (q2 - q1)/15
-  else:
-    qa = quadsetp(f,a,c,tol,fa,fd,fc)
-    qb = quadsetp(f,c,b,tol,fc,fe,fb)
-    q = qa + qb
-  return q
+    h = b-a
+    c = (a+b)/2
+    fd = feval('f', (a+c)/2)
+    fe = feval('f', (c+b)/2)
+    q1 = h/6 * (fa + 4*fc + fb)
+    q2 = h/12 * (fa + 4*fd + 2*fc + 4*fe + fb)
+    if abs(q2-q1) <= tol:
+      q = q2 + (q2 - q1)/15
+    else:
+      qa = quadsetp(f,a,c,tol,fa,fd,fc)
+      qb = quadsetp(f,c,b,tol,fc,fe,fb)
+      q = qa + qb
+    return q
 
 
 a = 0 
