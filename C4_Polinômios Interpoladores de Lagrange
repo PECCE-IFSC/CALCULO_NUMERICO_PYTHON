@@ -23,7 +23,7 @@ for i in range(0,n):
 print(f's = {s}')
 # Comparação com funções nativas!
 P = np.polyfit(x, y, 3) #ajusta por mínimos quadrados um polinômio de n grau
-s = np.polyval(P,xx) ----------------------------------------------------,,,,,,,,<<<<<<<<<<<<<<<<<<<<<<<<<<<<PROBLEM
+s = np.polyval(P,xx) 
 #gráfico
 xp = np.linspace(min(x),max(x),100)
 ss = np.polyval(P,xp)
