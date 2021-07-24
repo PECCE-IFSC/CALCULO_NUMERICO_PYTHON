@@ -2,6 +2,7 @@
 # Cálculo numérico para engenharia elétrica com PYTHON
 # Capítulo 5: Integração numérica
 # Quadratura Adaptativa
+# Referência: https://bytes.com/topic/python/answers/29829-feval-similar-matlab
 
 
 import numpy as np
