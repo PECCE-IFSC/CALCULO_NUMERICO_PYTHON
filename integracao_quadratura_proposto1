@@ -1,0 +1,75 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 5: Integração numérica_PROPOSTO1
+
+
+import numpy as np
+from scipy.constants import pi
+
+
+a = 0
+b = 2*pi
+
+f = lambda x: (np.sin(377*x))**2
+
+def feval(Nomefuncao, *argumentos):
+    return eval(Nomefuncao)(*argumentos)
+
+
+# trapezio
+precisao = 0.001
+n=4
+x = np.linspace(a,b,n)
+ff = np.power((np.sin(377*x)),2)
+Int_trapz = np.trapz(ff, x) 
+Vef_trapz = np.sqrt((311**2/(2*pi))*Int_trapz)
+#print(f'Trapezio: Vef = {Vef_trapz:.4f}')
+#print(f'Int = {Int_trapz:.4f}')
+
+
+# Quadratura adaptativa
+c = (a+b)/2
+fa = feval('f',a)
+fb = feval('f',b)
+fc = feval('f',c)
+tol = 1*np.exp(-1)
+
+
+def quadsetp(f,a,b,tol,fa,fc,fb):
+    h = b-a
+    c = (a+b)/2
+    fd = feval('f', (a+c)/2)
+    fe = feval('f', (c+b)/2)
+    q1 = h/6 * (fa + 4*fc + fb)
+    q2 = h/12 * (fa + 4*fd + 2*fc + 4*fe + fb)
+    if abs(q2-q1) <= tol:
+      q = q2 + (q2 - q1)/15
+    else:
+      qa = quadsetp(f,a,c,tol,fa,fd,fc)
+      qb = quadsetp(f,c,b,tol,fc,fe,fb)
+      q = qa + qb
+    return q
+
+q = quadsetp(f,a,b,tol,fa,fc,fb)
+
+Int_quad = q
+Vef_quad = np.sqrt((311**2/(2*pi))*Int_quad)
+
+
+
+a = 0 
+b = 0.003
+c = (a+b)/2
+tol = 1*np.exp(-6)
+fa = feval('f',a)
+fb = feval('f',b)
+fc = feval('f',c)
+w = quadsetp(f,a,b,tol,fa,fc,fb)
+#print(f'w = {w}')
+#print(f'Quadratura: Vef = {Vef_quad:.4f}')
+#print(f'Int = {Int_trapz:.4f}')
+
+from tabulate import tabulate
+
+tabela = [['Método','Pontos', 'Int', 'Vef'],['Trapezio', f'{n}',f'{Int_trapz:.4f}', f'{Vef_trapz:.4f}'],['Quad', ' - ', f'{Int_quad:.4f}', f'{Vef_quad:.4f}']]
+
+print(tabulate(tabela, headers='firstrow', tablefmt='fancy_grid',numalign='center'))
