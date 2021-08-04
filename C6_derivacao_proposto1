@@ -1,5 +1,6 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 6: Derivação numérica_PROPOSTO1
 
-# Capítulo 6: EXERCÍCIO PROPOSTO 1
 
 from numpy import divide, diff
 
