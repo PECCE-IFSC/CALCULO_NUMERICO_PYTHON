@@ -1,3 +1,7 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 9: equações integrais_PROPOSTO1
+# Método dos Momentos
+
 import numpy as np
 from math import sqrt
 from scipy.constants import pi
