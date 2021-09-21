@@ -1,3 +1,9 @@
+   
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 1: Raízes
+# Método intervalar: Bissecção
+# Diodo
+
 from math import log, e  # importa função logarítimo neperiano e a cte de euler
 
 def f(Id,  # Corrente no diodo (A)
