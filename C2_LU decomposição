@@ -4,17 +4,15 @@
 # Adaptado de cctmexico
 # Referência: https://www.youtube.com/watch?v=FpVeXhAQg9w
 
-from numpy import array, transpose, zeros, linalg
-def LU_Decomposition_method(A, b):
-    '''
-    :param A: matriz aumentada numpy.array
-    :param b: vetor numpy.array
-    '''
+import numpy as np 
+
+
+def LU_Decomposition_method(A, b):  # cria-se a função do método
     m = len(A)
-    y = zeros(m, float)
-    x = zeros(m, float)
+    y = np.zeros(m)
+    x = np.zeros(m)
     U = A
-    L = zeros([m, m])
+    L = np.zeros([m, m])
     for k in range(0, m):
         for r in range(0, m):
             if (k == r):
@@ -24,11 +22,11 @@ def LU_Decomposition_method(A, b):
                 L[r, k] = factor
                 for c in range(0, m):
                     U[r, c] = A[r, c] - (factor * A[k, c])
-    A = zeros([m, m])
+    A = np.zeros([m, m])
     for r in range(0, m):
         for c in range(0, m):
             for k in range(0, m):
-                A[r, c] += (L[r, k]*U[k, c])
+                A[r, c] += (L[r, k] * U[k, c])
     print('A')
     print(A)
     print('L')
@@ -36,11 +34,10 @@ def LU_Decomposition_method(A, b):
     print()
     print('U')
     print(U)
-    print()
     # RESOLUÇÃO DAS EQUAÇÕES MATRICIAIS
     ###################################
-    y = linalg.solve(L, b)
-    x = linalg.solve(U, y)
+    y = np.linalg.solve(L, b)
+    x = np.linalg.solve(U, y)
     ###################################
     f = 'SOLUÇÃO DO SISTEMA'
     print('-'*(len(f)+32))
@@ -49,14 +46,15 @@ def LU_Decomposition_method(A, b):
     print('x =')
     print(x)
     print('Onde: ')
-    for c in range (0, len(x)):
+    for c in range(0, len(x)):
         print(f'\t x[{c}] = {x[c]} \n')
 
 
+
 # Uso do método
-A = array([[3, 1, 0, -1],
-           [1, 3, 1, 1],
-           [0, 1, 3, -1],
-           [-1, 1, -1, 4]], float)
-b = transpose([10, 15, 10, 0])
-LU_Decomposition_method(A,b)
+A = np.array([[3, 1, 0, -1],
+              [1, 3, 1, 1],
+              [0, 1, 3, -1],
+              [-1, 1, -1, 4]])
+b = np.transpose([10, 15, 10, 0])
+LU_Decomposition_method(A, b)
