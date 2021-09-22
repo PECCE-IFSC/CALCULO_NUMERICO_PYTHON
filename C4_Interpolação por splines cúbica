@@ -2,10 +2,6 @@
 # Capítulo 4: Ajuste de Curvas
 # SPLINES
 
-import matplotlib.pyplot as plt
-import numpy as np
-import scipy.interpolate as sp
-
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -84,4 +80,3 @@ for i in range(0, (len(tempo) - 1)):
 print(f'b =\n {b}')
 plt.legend()
 plt.show()
-
