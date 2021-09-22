@@ -4,31 +4,32 @@
 
 
 import numpy as np
-import math as m
-Er = 1 
-Eo = 8.8541*(10**-12) 
-Vo = 1  
-AA = 0.001 
+
+
+Er = 1
+Eo = 8.8541 * (10 ** -12)
+Vo = 1
+AA = 0.001
 L = 1
 N = 1000
-Delta = L/N
-I = np.arange(1,N+1,1)
-Y = Delta*(I-0.5)
-A = np.zeros((1000,1000))
+Delta = L / N
+I = np.arange(1, N + 1, 1)
+Y = Delta * (I - 0.5)
+A = np.zeros((1000, 1000))
 for i in range(0, N):
-  for j in range(0,N):
-    if i != j:
-      A[i][j]=Delta/abs(Y[i]-Y[j])
-    else:
-      A[i][j]= 0.0
+    for j in range(0, N):
+        if i != j:
+            A[i][j] = Delta / abs(Y[i] - Y[j])
+        else:
+            A[i][j] = 0.0
 
-B = 4*np.pi*Eo*Er*Vo*np.ones((N,1))
-C = y = np.linalg.inv(A)
-Rho = np.matmul(C,B)
+B = 4 * np.pi * Eo * Er * Vo * np.ones((N, 1))
+C = np.linalg.inv(A)
+Rho = np.matmul(C, B)
 Sum = 0
-for I in range(0,N):
-  Sum = Sum + Rho[I]
+for I in range(0, N):
+    Sum = Sum + Rho[I]
 I += 1
-Q = Sum*Delta
+Q = Sum * Delta
 
 print(f'Q = \n{Q}')
