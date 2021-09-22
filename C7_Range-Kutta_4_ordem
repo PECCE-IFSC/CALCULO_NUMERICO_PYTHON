@@ -6,6 +6,8 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 V = 10
 R = 1
@@ -18,26 +20,23 @@ i = np.zeros(1+int(r))
 t = np.zeros(1+int(r))
 
 while t[it] < tf:
-  k1=(1/L)*(V - R*i[it])
-  tx = t[it]+(1/2)*h
-  ix = i[it]+ (1/2)*k1*h
-  k2 = (1/L)*(V - R*ix)
-  tx = t[it]+(1/2)*h
-  ix = i[it]+ (1/2)*k2*h
-  k3 = (1/L)*(V- R*ix)
-  tx = t[it]+ h
-  ix = i[it]+ k3*h
-  k4 = (1/L)*(V- R*ix)
-  i[it+1] = i[it]+(1/6)*(k1+2*k2+2*k3+k4)*h
-  t[it+1]= t[it]+h
-  it=it+1
-
-#print(f'i = \n {i}')
-#print(f't = \n {t}')
+    k1 = (1 / L) * (V - R * i[it])
+    tx = t[it] + (1 / 2) * h
+    ix = i[it] + (1 / 2) * k1 * h
+    k2 = (1 / L) * (V - R * ix)
+    tx = t[it] + (1 / 2) * h
+    ix = i[it] + (1 / 2) * k2 * h
+    k3 = (1/L) * (V - R * ix)
+    tx = t[it] + h
+    ix = i[it] + k3 * h
+    k4 = (1 / L) * (V - R * ix)
+    i[it + 1] = i[it] + (1 / 6) * (k1 + 2 * k2 + 2 * k3 + k4) * h
+    t[it + 1] = t[it] + h
+    it += 1
 
 # Visualização
-import matplotlib.pyplot as plt
-plt.plot(t,i,'k', linewidth = 2)
+
+plt.plot(t, i, linewidth=2)
 plt.grid(True)
 plt.xlabel('Tempo (s)')
 plt.ylabel('Corrente (A)')
