@@ -1,3 +1,8 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 3: Python para Cálculo Numérico
+# Manipulações e funções internas
+
+
 import numpy as np
 
 
