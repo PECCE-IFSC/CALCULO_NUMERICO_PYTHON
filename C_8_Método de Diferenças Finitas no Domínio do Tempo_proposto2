@@ -1,0 +1,90 @@
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+pi = np.pi
+xdim=ydim= 12
+xdim_dex = ydim_dex = xdim-1 
+time_tot=350
+xsource= 6
+ysource= 3
+xsource_dex = xsource-1
+ysource_dex = ysource-1
+S= 1/(2**0.5)
+epsilon0 = (1/(36*pi))*1e-9
+mu0 = 4*pi*(1e-7)
+c = 3e+8
+delta = 1e-6
+deltat = S*(delta)/c
+Ez = np.zeros((xdim,ydim))
+Hy = np.zeros((xdim,ydim))
+Hx = np.zeros((xdim,ydim))
+epsilon = np.dot((epsilon0),(np.ones((xdim,ydim))))
+mu = mu0 * np.ones((xdim,ydim))
+sigma = 4e-4*np.ones((xdim,ydim))
+sigma_star = 4e-4*np.ones((xdim,ydim))
+gaussian = 0
+sine = 0
+frequency = 1.5e+13
+impulse = 0
+
+A=((mu-0.5*np.dot(deltat, sigma_star))/(mu+0.5*np.dot(deltat, sigma_star)))
+B=((deltat/delta)/(mu+0.5*np.dot(deltat, sigma_star)))
+C=((epsilon-0.5*np.dot(deltat, sigma))/(epsilon+0.5*np.dot(deltat, sigma)))
+D=(deltat/delta)/(epsilon+0.5*np.dot(deltat, sigma))
+fig, ax = plt.subplots()
+for n in range(0,time_tot,1):
+    if gaussian==0 and sine==0 and n==0:
+        Ez[xsource_dex,ysource_dex]=1
+    if n<xsource-2:
+        n1=xsource-n-1
+    else:
+        n1=1
+    if n<xdim-1-xsource:
+        n2=xsource+n
+    else:
+        n2=xdim-1
+    if n<ysource-2:
+        n11=ysource-n-1
+    else:
+        n11=1
+    if n<ydim-1-ysource:
+        n21=ysource+n
+    else:
+        n21=ydim-1
+        n1 -= 1
+        n2 -= 1
+        n11 -= 1
+        n21 -= 1
+        
+Hy[n1:n2+1,n11:n21+1] = A[n1:n2+1, n11:n21+1]*Hy[n1:n2+1, n11:n21+1]+B[n1:n2+1,n11:n21+1]*(Ez[n1+1:n2+1+1,n11:n21+1]-Ez[n1:n2+1,n11:n21+1])
+Hx[n1:n2+1,n11:n21+1] = A[n1:n2+1, n11:n21+1]*Hx[n1:n2+1, n11:n21+1]-B[n1:n2+1,n11:n21+1]*(Ez[n1:n2+1,n11+1:n21+1+1]-Ez[n1:n2+1,n11:n21+1])
+Ez[n1+1:n2+1+1, n11+1:n21+1+1] = C[n1+1:n2+1+1, n11+1:n21+1+1]*Ez[n1+1:n2+1+1, n11+1:n21+1+1]+D[n1+1:n2+1+1, n11+1:n21+1+1]*(Hy[n1+1:n2+1+1, n11+1:n21+1+1]-Hy[n1:n2+1, n11+1:n21+1+1]-Hx[n1+1:n2+1+1, n11+1:n21+1+1]+Hx[n1+1:n2+1+1, n11:n21+1])
+Ez[0:xdim_dex+1, 0]=0
+Ez[0:xdim_dex+1, ydim_dex]=0
+Ez[0,  0:ydim_dex+1]=0
+Ez[xdim_dex, 0:ydim_dex+1]=0
+if impulse==0:
+    if gaussian==0 and sine==0:
+          Ez[xsource_dex,ysource_dex]=1
+    if sine==1:
+        tstart=1
+        N_lambda=c/(frequency*delta)
+        Ez[xsource_dex,ysource_dex]=np.sin(((2*pi*(c/(delta*N_lambda))*(n-tstart)*deltat)))
+    if gaussian==1:
+        if n<=42:
+            Ez[xsource_dex,ysource_dex]=(10-5*np.cos(n*pi/20)+6*np.cos(2*n*pi/20)-np.cos(3*n*pi/20))/32
+        else:
+            Ez[xsource_dex,ysource_dex]=0
+    else: 
+        Ez[xsource_dex,ysource_dex]=0
+Ez_vis = np.transpose(Ez)
+Im = ax.imshow(Ez_vis, cmap = 'gist_heat', aspect='auto', vmax=1,vmin=-1) #cmap = 'autumn'; cmap = 'gist_rainbow'; cmap= 'seismic'. Link: https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html
+if n==0:
+    cbar = fig.colorbar(Im,ticks=[-1,-0.5,0,0.5,1] )
+    cbar.set_ticklabels(['-1','-0.5','0','0.5','1'])
+    plt.pause(0.1)
+    plt.show()
