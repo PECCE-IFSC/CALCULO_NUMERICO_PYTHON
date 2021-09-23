@@ -1,0 +1,37 @@
+# Por Lucas Souza Oliveira Mendonça
+
+import numpy as np
+from scipy.integrate import odeint
+import matplotlib.pyplot as plt
+
+
+# Definindo a função que retorna a derivada da função
+def derivada(y,t,L,R,C):                         
+    dydt = [y[1],(-(R/L)*y[1]) - (y[0]/(L*C))]  # Como estarei utilizando a função odeint do Scipy,
+    return dydt                                 # é necessário que a nossa derivada e o jacobiano 
+                                                # estejam organizados dentro de uma função para ser
+                                                # utilizada como parâmetro.
+
+
+# Resolvendo a EDO
+
+x0 = [0,10] # Condição inicial (il = 0 A e Vc = 10 V)
+L= 1
+R= 10
+C= 0.000001
+
+t = np.linspace(0,1,200)
+
+x = odeint(derivada,x0,t,args=(L,R,C))
+ 
+# Analisando os gráficos
+
+plt.xlabel('t (s)')       # Pelos gráficos gerados a partir da resolução da EDO,
+plt.ylabel('Tensão (V)')  # podemos notar que, em t = 1s, tensão e corrente têm 
+plt.plot(t, x[:,1])       # valor 0.
+plt.show()
+print('')
+plt.xlabel('t (s)')
+plt.ylabel('Corrente (A)')
+plt.plot(t, x[:,0])
+plt.show()     
