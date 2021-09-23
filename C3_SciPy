@@ -1,3 +1,9 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 3: Python para Cálculo Numérico
+# Interpolação com SciPy
+# Referência: https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.interp1d.html
+
+
 import matplotlib.pyplot as plt
 from scipy import interpolate
 
