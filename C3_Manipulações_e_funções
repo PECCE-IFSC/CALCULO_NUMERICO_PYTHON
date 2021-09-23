@@ -1,14 +1,18 @@
 import numpy as np
 
 
-a = np.arange(15)
-print(a)
-a = a.reshape(3, 5)
-print(a)
-
+# algumas técnicas importantes
 a = np.arange(64)
 a = a.reshape(16, 4)
 print(a)
 print(a.shape)  # Formato de a: 16 por 4
 print(a.size)  # Quantidade de valores em a: 64
 print(len(a))  # Quantidade de linhas em a: 16
+
+# O problema 
+a = np.arange(15)
+print(f'a =\n {a}')  # \n é usado para quebra de linha
+a = a.reshape(3, 5)
+print(f'a =\n {a}')  # f-strings facilitam a formatação
+b = a[1:3, 3:5]
+print(f'b =\n {b}')
