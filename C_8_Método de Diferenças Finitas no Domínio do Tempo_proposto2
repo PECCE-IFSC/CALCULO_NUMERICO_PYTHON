@@ -1,4 +1,6 @@
-
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo _8: Equações diferenciais parciais_PROPOSTO2
+# Diferênças Finitas no Domínio do Tempo
 
 
 import numpy as np
