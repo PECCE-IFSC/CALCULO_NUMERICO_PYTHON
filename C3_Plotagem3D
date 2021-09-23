@@ -1,6 +1,6 @@
 # Cálculo numérico para engenharia elétrica com PYTHON
 # Capítulo 3: Python para Cálculo Numérico
-# Plotagem3D
+# Plotagem 3D
 
 
 import matplotlib.pyplot as plt
