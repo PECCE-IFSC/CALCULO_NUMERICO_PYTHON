@@ -1,5 +1,5 @@
 # Cálculo numérico para engenharia elétrica com PYTHON
-# Capítulo 2: Sistemas Lineares_PROPOSTO2
+# Capítulo 4: Sistemas Lineares_PROPOSTO2
 # Método iterativo: Gauss-Siedel
 
 import numpy as np
