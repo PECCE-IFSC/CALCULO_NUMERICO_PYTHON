@@ -19,7 +19,6 @@ print(f'y_sen =\n{y_sen} ')
 print(f'y_cos =\n{y_cos} ')
 
 # Subplots
-
 x = np.linspace(-np.pi, np.pi, 35)
 y_sen = np.sin(x)
 y_cos = np.cos(x)
