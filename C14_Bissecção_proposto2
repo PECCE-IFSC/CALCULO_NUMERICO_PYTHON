@@ -1,5 +1,5 @@
 # Cálculo numérico para engenharia elétrica com PYTHON
-# Capítulo 3: Raízes_PROPOSTO2
+# Capítulo 4: Raízes_PROPOSTO2
 # Método intervalar: Bissecção
 # Beta
 import matplotlib.pyplot as plt
