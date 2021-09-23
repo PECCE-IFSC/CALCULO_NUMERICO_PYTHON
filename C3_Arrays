@@ -1,3 +1,7 @@
+# Cálculo numérico para engenharia elétrica com PYTHON
+# Capítulo 3: Python para Cálculo Numérico
+
+
 import numpy as np  
 
 A = np.array([[1, 2, 3], 
