@@ -1,5 +1,5 @@
 # Cálculo numérico para engenharia elétrica com PYTHON
-# Capítulo 7: equações diferenciais ordinárias
+# Capítulo 10: equações diferenciais ordinárias
 # circuito RL com fonte CC
 #
 # di/dt=f(i,t)=(1/L)(vm-ri)
